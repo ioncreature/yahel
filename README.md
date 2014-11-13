@@ -39,7 +39,6 @@ API
 Available error classes
 =======================
 
-The set of error classes is contain the next:
 ```
 Conflict
 Gone
