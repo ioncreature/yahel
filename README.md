@@ -30,10 +30,10 @@ app.use( function( error, req, res, next ){
 API
 ===
 
-`ErrorClass( [message] )`
-`{string} ErrorClass.message`
-`{number} ErrorClass.status`
-`{string} ErrorClass.stack`
+  {Function} ErrorClass( {string?} message )
+  {string} ErrorClass.message
+  {number} ErrorClass.status
+  {string} ErrorClass.stack
 
 
 Available error classes
