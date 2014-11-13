@@ -1,0 +1,26 @@
+{
+    "name": "yahel",
+    "version": "0.1.0",
+    "description": "Yet another HTTP error library",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ioncreature/yahel.git"
+    },
+    "keywords": [
+        "error",
+        "http",
+        "errors",
+        "status",
+        "statusCode",
+        "bla-bla-bla",
+        "express",
+        "connect"
+    ],
+    "author": "Alexander Marenin <comrade.muchacho@gmail.com>",
+    "license": "BSD-2-Clause",
+    "bugs": {
+        "url": "https://github.com/ioncreature/yahel/issues"
+    },
+    "homepage": "https://github.com/ioncreature/yahel"
+}
