@@ -182,6 +182,12 @@ exports.BadGateway = httpError( 502 );
  */
 exports.ServiceUnavailable = httpError( 503 );
 
+/**
+ * @constructor
+ * @extends Error
+ */
+exports.GatewayTimeout = httpError( 504 );
+
 
 (function(){
     assert( exports.NotFound instanceof Function, 'error constructor should be function' );

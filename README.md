@@ -14,8 +14,12 @@ app.get( '/not-found', function( req, res, next ){
     next( new httpError.NotFound );
 });
 
-app.get( '/error', function( req, res, next ){
-    next( new httpError.InternalError('Wow such an error!') );
+app.get( '/forbidden', function( req, res, next ){
+    next( new httpError.Forbidden );
+});
+
+app.get( '/internal-error', function( req, res, next ){
+    next( new httpError.InternalServerError('Wow! Such an error!') );
 });
 
 app.use( function( error, req, res, next ){
