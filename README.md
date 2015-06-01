@@ -34,10 +34,14 @@ app.use( function( error, req, res, next ){
 API
 ===
 
-* {Function} ErrorClass( {string?} message )
+* {Function} ErrorClass( {string?} message, {*} info )
 * {string} ErrorClass.message
 * {number} ErrorClass.status
 * {string} ErrorClass.stack
+* {string} ErrorClass.info
+
+Parameter `info` is optional and non-standart but useful when you want to send some meta info inside error instance.
+You can assign what you want to `info`.
 
 
 Available error classes

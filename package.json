@@ -1,6 +1,6 @@
 {
     "name": "yahel",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "description": "Yet another HTTP error library",
     "main": "index.js",
     "repository": {

@@ -66,11 +66,12 @@ function httpError( code ){
 }
 
 
-function ErrorConstructor( message ){
+function ErrorConstructor( message, info ){
     Error.apply( this, arguments );
     Error.captureStackTrace(this, ErrorConstructor);
     this.name = ErrorConstructor.name;
     this.status = 500;
+    this.info = info;
     this.message = message || "error";
 }
 
@@ -196,4 +197,7 @@ exports.GatewayTimeout = httpError( 504 );
     assert.equal( e.message, 'Not Found', 'new error should contain default error message' );
     assert( e.name, 'error object should contain error name' );
     assert( e.stack, 'error object should contain error stack' );
+    var e2 = new exports.Forbidden( 'wow', {some: 'meta'} );
+    assert.equal( e2.message, 'wow', 'error message should be redefined' );
+    assert.equal( e2.info.some, 'meta', 'info should be passed to .info property' );
 })();
