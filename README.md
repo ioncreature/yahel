@@ -28,6 +28,23 @@ app.use( function( error, req, res, next ){
         stack: error.stack
     });
 });
+
+
+// Also it is possible to shorten the code above:
+var httpError = require( 'yahel' );
+    NotFound = httpError.NotFound,
+    Forbidden = httpError.Forbidden;
+
+app.get( '/not-found', function( req, res, next ){
+    next( NotFound() );
+});
+
+app.get( '/forbidden', function( req, res, next ){
+    next( Forbidden('Oh, no') );
+});
+
+// ...
+
 ```
 
 

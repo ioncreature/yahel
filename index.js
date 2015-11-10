@@ -67,6 +67,8 @@ function httpError( code ){
 
 
 function ErrorConstructor( message, info ){
+    if ( !(this instanceof ErrorConstructor) )
+        return new ErrorConstructor( message, info );
     Error.apply( this, arguments );
     Error.captureStackTrace(this, ErrorConstructor);
     this.name = ErrorConstructor.name;
@@ -200,4 +202,8 @@ exports.GatewayTimeout = httpError( 504 );
     var e2 = new exports.Forbidden( 'wow', {some: 'meta'} );
     assert.equal( e2.message, 'wow', 'error message should be redefined' );
     assert.equal( e2.info.some, 'meta', 'info should be passed to .info property' );
+
+    var e3 = exports.Forbidden( 'yeah' );
+    assert.equal( e3 instanceof exports.Forbidden, true, 'it should create error object without "new" operator' );
+    assert.equal( e3.message, 'yeah', 'error message should be redefined' );
 })();
