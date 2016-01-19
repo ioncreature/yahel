@@ -37,6 +37,7 @@ var statusCodes = {
     444: "No Response",
     449: "Retry With",
     450: "Blocked By Windows Parental Controls",
+    451: "Unavailable For Legal Reasons",
     499: "Client Closed Request",
     500: "Internal Server Error",
     501: "Not Implemented",
@@ -70,7 +71,7 @@ function ErrorConstructor( message, info ){
     if ( !(this instanceof ErrorConstructor) )
         return new ErrorConstructor( message, info );
     Error.apply( this, arguments );
-    Error.captureStackTrace(this, ErrorConstructor);
+    Error.captureStackTrace( this, ErrorConstructor );
     this.name = ErrorConstructor.name;
     this.status = 500;
     this.info = info;

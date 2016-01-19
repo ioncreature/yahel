@@ -87,6 +87,7 @@ RequestHeaderFieldsTooLarge
 NoResponse
 RetryWith
 BlockedByWindowsParentalControls
+UnavailableForLegalReasons
 ClientClosedRequest
 InternalServerError
 NotImplemented
