@@ -43,6 +43,18 @@ app.get( '/forbidden', function( req, res, next ){
     next( Forbidden('Oh, no') );
 });
 
+
+// Also it is possible to create error by code:
+var httpError = require( 'yahel' );
+
+app.get( '/not-found', function( req, res, next ){
+    next( httpError.fromStatus(404) );
+});
+
+app.get( '/internal-error', function( req, res, next ){
+    next( httpError.fromStatus(500, 'Oh, fatality') );
+});
+
 // ...
 
 ```
@@ -60,6 +72,7 @@ API
 Parameter `info` is optional and non-standart but useful when you want to send some meta info inside error instance.
 You can assign what you want to `info`.
 
+* {Error} fromStatus( {number!} status, {string?} message, {*} info )
 
 Available error classes
 =======================

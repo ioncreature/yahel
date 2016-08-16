@@ -192,6 +192,17 @@ exports.ServiceUnavailable = httpError( 503 );
  */
 exports.GatewayTimeout = httpError( 504 );
 
+/**
+ * Creates Error instance from http status code
+ * @param {!Number} status
+ * @param {?String} message
+ * @param {*} info
+ * @return {Error}
+ */
+exports.fromStatus = function( status, message, info ) {
+    if (!status || !statusCodes[status]) return new exports.InternalServerError('Unsupported status: ' + status);
+    return new exports[toCamelCase(statusCodes[status])](message, info);
+};
 
 (function(){
     assert( exports.NotFound instanceof Function, 'error constructor should be function' );
