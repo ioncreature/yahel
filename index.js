@@ -3,8 +3,6 @@
  * @date November 2014
  */
 
-var assert = require( 'assert' );
-
 var statusCodes = {
     400: "Bad Request",
     401: "Unauthorized",
@@ -53,6 +51,31 @@ var statusCodes = {
     511: "Network Authentication Required"
 };
 
+var inCamelCase = {};
+
+/*
+ * Implicitly create all http errors constructors
+ */
+Object.keys( statusCodes ).forEach( function( code ){
+    inCamelCase[code] = toCamelCase( statusCodes[code] );
+    exports[inCamelCase[code]] = httpError( code );
+});
+
+
+/**
+ * Creates Error instance from http status code
+ * @param {Number} code
+ * @param {String?} message
+ * @param {*?} info
+ * @return {Error}
+ */
+exports.fromStatus = function( code, message, info ){
+    if ( !code || !statusCodes[code] )
+        return new exports.InternalServerError( 'Unsupported status code: ' + code );
+
+    return new exports[inCamelCase[code]]( message, info );
+};
+
 
 function httpError( code ){
     var fn = ErrorConstructor
@@ -88,14 +111,6 @@ function toCamelCase( str ){
             return match.charAt( match.length - 1 ).toUpperCase();
         });
 }
-
-
-/*
- * Implicitly create all http errors constructors
- */
-Object.keys( statusCodes ).forEach( function( code ){
-    exports[toCamelCase(statusCodes[code])] = httpError( code );
-});
 
 
 /*
@@ -192,30 +207,3 @@ exports.ServiceUnavailable = httpError( 503 );
  */
 exports.GatewayTimeout = httpError( 504 );
 
-/**
- * Creates Error instance from http status code
- * @param {!Number} status
- * @param {?String} message
- * @param {*} info
- * @return {Error}
- */
-exports.fromStatus = function( status, message, info ) {
-    if (!status || !statusCodes[status]) return new exports.InternalServerError('Unsupported status: ' + status);
-    return new exports[toCamelCase(statusCodes[status])](message, info);
-};
-
-(function(){
-    assert( exports.NotFound instanceof Function, 'error constructor should be function' );
-    var e = new exports.NotFound;
-    assert( e instanceof Error, 'new object should be instance of error' );
-    assert.equal( e.message, 'Not Found', 'new error should contain default error message' );
-    assert( e.name, 'error object should contain error name' );
-    assert( e.stack, 'error object should contain error stack' );
-    var e2 = new exports.Forbidden( 'wow', {some: 'meta'} );
-    assert.equal( e2.message, 'wow', 'error message should be redefined' );
-    assert.equal( e2.info.some, 'meta', 'info should be passed to .info property' );
-
-    var e3 = exports.Forbidden( 'yeah' );
-    assert.equal( e3 instanceof exports.Forbidden, true, 'it should create error object without "new" operator' );
-    assert.equal( e3.message, 'yeah', 'error message should be redefined' );
-})();
