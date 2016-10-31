@@ -25,6 +25,7 @@ assert.equal( e4.name, 'InternalServerError', 'error name should be passed' );
 assert.equal( e4.status, 500, 'error have correct http status code' );
 assert.equal( e4.message, 'my message', 'message passed correctly' );
 assert.deepEqual( e4.info, {some: 'meta'}, 'info passed correctly' );
+assert.equal( JSON.stringify(e4), '{"message":"my message","status":500}', 'JSON.stringify returns custom message and status' );
 
 var e5 = httpError.fromStatus( 401 );
 assert( e5 instanceof httpError.Unauthorized, 'error should be instance of Unauthorized' );
@@ -32,4 +33,4 @@ assert.equal( e5.message, 'Unauthorized', 'default message passed if not given' 
 assert.equal( e5.name, 'Unauthorized', 'error name passed correctly' );
 assert.equal( e5.status, 401, 'error have correct http status code' );
 assert.equal( e5.info, undefined, 'info ins undefined by default' );
-
+assert.equal( JSON.stringify(e5), '{"message":"Unauthorized","status":401}', 'JSON.stringify returns default message and status' );

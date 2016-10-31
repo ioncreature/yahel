@@ -86,6 +86,12 @@ function httpError( code ){
         constructor = (new Function('return ' + fn))();
 
     constructor.prototype = Object.create( Error.prototype, {constructor: {value: constructor}} );
+    Object.defineProperty( constructor.prototype, 'toJSON', {
+        enumerable: false,
+        value: function(){ 
+            return {message: this.message, status: this.status}; 
+        }
+    });
     return constructor;
 }
 
