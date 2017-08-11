@@ -34,3 +34,9 @@ assert.equal( e5.name, 'Unauthorized', 'error name passed correctly' );
 assert.equal( e5.status, 401, 'error have correct http status code' );
 assert.equal( e5.info, undefined, 'info ins undefined by default' );
 assert.equal( JSON.stringify(e5), '{"message":"Unauthorized","status":401}', 'JSON.stringify returns default message and status' );
+
+var e6 = httpError.fromStatus( 503 );
+assert.equal( e6.stack.split('\n')[0], 'ServiceUnavailable: Service Unavailable' );
+
+var e7 = httpError.fromStatus( 500, 'Critical error' );
+assert.equal( e7.stack.split('\n')[0], 'InternalServerError: Critical error' );
