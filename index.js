@@ -100,11 +100,11 @@ function ErrorConstructor( message, info ){
     if ( !(this instanceof ErrorConstructor) )
         return new ErrorConstructor( message, info );
     Error.apply( this, arguments );
-    Error.captureStackTrace( this, ErrorConstructor );
     this.name = ErrorConstructor.name;
     this.status = 500;
     this.info = info;
     this.message = message || "error";
+    Error.captureStackTrace( this, ErrorConstructor );
 }
 
 
